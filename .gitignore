@@ -1,0 +1,16 @@
+# Compiled
+*.elc
+.yas-compiled-snippets.el
+
+# Internal
+elpa
+.cache
+auto-save-list
+custom.el
+transient/
+
+# Straight
+/var
+/straight/*
+!/straight/versions/
+!/straight/versions/*
