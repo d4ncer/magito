@@ -4,13 +4,22 @@ MAGITO_HOME=$(dirname "$(readlink "$0")")
 REPO=$(basename "`pwd`")
 
 case "$(uname -s)" in
+    # MacOS
     Darwin)
         EMACS=/Applications/Emacs.app/Contents/MacOS/Emacs
         ;;
+
+    # Linux
+    Linux)
+        EMACS=emacs
+        ;;
+
+    # Everything else
     *)
+
         echo 'Unsupported OS'
         exit 2
         ;;
 esac
 
-${EMACS} --name="magito: $REPO" -q --load $MAGITO_HOME/init.el
+${EMACS} --name="$REPO" -q --load $MAGITO_HOME/init.el
