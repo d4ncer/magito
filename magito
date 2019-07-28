@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 MAGITO_HOME=$(dirname "$(readlink "$0")")
 REPO=$(basename "`pwd`")
