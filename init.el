@@ -11,6 +11,9 @@
 (when (version< emacs-version "26")
   (error "This version of Emacs is not supported"))
 
+(setq user-init-file (or load-file-name (buffer-file-name)))
+(setq user-emacs-directory (file-name-directory user-init-file))
+
 (setq gc-cons-threshold (* 800 1024))
 
 ;; Bootstrap straight
@@ -57,8 +60,6 @@
 
 ;; Setup basic stuff
 
-(setq user-init-file (or load-file-name (buffer-file-name)))
-(setq user-emacs-directory (file-name-directory user-init-file))
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-screen t)
 
