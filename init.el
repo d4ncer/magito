@@ -40,7 +40,7 @@
 
 (require 'straight bootstrap-file t)
 
-;; Setup basic packages & use-package
+;; Setup basic packages
 
 (straight-use-package 'dash)
 (straight-use-package 'f)
@@ -54,14 +54,9 @@
 (straight-use-package 'evil-collection)
 (straight-use-package 'magit)
 (straight-use-package 'evil-magit)
-
-(defconst use-package-verbose t)
-
-(straight-use-package 'use-package)
 (straight-use-package 'bind-map)
 
 (require 'recentf)
-(require 'use-package)
 (require 'dash)
 (require 'general)
 (require 'f)
