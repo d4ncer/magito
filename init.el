@@ -63,7 +63,7 @@
 (setq inhibit-startup-screen t)
 
 (defun magito/init ()
-  "Initialise magito."
+  "Initialise."
   (toggle-frame-maximized))
 
 (defalias #'yes-or-no-p #'y-or-n-p)
@@ -77,6 +77,8 @@
 ;; Instantly display current keystrokes in mini buffer
 
 (setq echo-keystrokes 0.02)
+
+;; Clean up visuals
 
 (use-package menu-bar
   :bind (("C-c e e" . toggle-debug-on-error))
@@ -94,6 +96,8 @@
   :config
   (scroll-bar-mode -1))
 
+;; Setup themes
+
 (use-package doom-themes
   :straight t
   :config
@@ -104,6 +108,8 @@
   :hook (emacs-startup . doom-modeline-mode)
   :custom
   (doom-modeline-icon nil))
+
+;; The meat and potatoes
 
 (use-package magit
   :straight t
