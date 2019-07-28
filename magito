@@ -22,4 +22,4 @@ case "$(uname -s)" in
         ;;
 esac
 
-${EMACS} --name="$REPO" -q --load $MAGITO_HOME/init.el
+${EMACS} --name="$REPO" -q --load "$MAGITO_HOME/init.el"
