@@ -1,7 +1,7 @@
 # Magito - Emacs as a git client
 
 Still early days, much more to come:
-* `git-timemachine` functionality + hydra
+* ~`git-timemachine` functionality + hydra~
 * `git-blame` hydra
 * Basic hydra for common git client workflows
 * Customisation options
@@ -22,4 +22,8 @@ ln -s /path/you/cloned/magito/magito magito
 cd some-git-project
 magito
 ```
+
+## Useful commands (in-file)
+* `C-c C-t` kicks off `git-timemachine`
+* `C-c C-s` goes to `magit-status`
 
