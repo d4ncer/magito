@@ -126,9 +126,6 @@
 (general-setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 (magit-status-setup-buffer default-directory)
 
-(general-define-key :keymaps 'magit-status-mode-map :states 'normal
-                    "q" 'kill-emacs)
-
 ;; Timemachine
 
 (pretty-hydra-define magito/timemachine
@@ -142,9 +139,23 @@
    "Misc"
    (("Y" git-timemachine-kill-revision "copy hash"))))
 
-(general-define-key :states 'normal
-                    "C-c C-t" 'magito/timemachine/body
-                    "C-c C-s" 'magit-status)
+;; Base bindings
+
+(pretty-hydra-define magito/base
+  (:title "Magito" :foreign-keys run :quit-key "C-g")
+  ("File/Project"
+   (("f" find-file "find file" :exit t))
+
+   "Git"
+   (("t" magito/timemachine/body "time machine" :exit t)
+    ("s" magit-status "status" :exit t))))
+
+(general-define-key :states '(normal motion visual)
+                    "SPC" 'magito/base/body)
+
+(general-define-key :keymaps 'magit-status-mode-map :states 'normal
+                    "SPC" 'magito/base/body
+                    "q" 'kill-emacs)
 
 (add-hook 'emacs-startup-hook #'magito/init)
 
