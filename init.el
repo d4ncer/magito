@@ -129,15 +129,15 @@
 ;; Timemachine
 
 (pretty-hydra-define magito/timemachine
-                     (:title "Hot Git Time Machine" :pre (unless (bound-and-true-p git-timemachine-mode) (call-interactively 'git-timemachine)) :post (when (bound-and-true-p git-timemachine-mode) (git-timemachine-quit)) :foreign-keys run :quit-key "q")
-                     ("Goto"
-                      (("p" git-timemachine-show-previous-revision "previous commit")
-                       ("n" git-timemachine-show-next-revision "next commit")
-                       ("c" git-timemachine-show-current-revision "current commit")
-                       ("g" git-timemachine-show-nth-revision "nth commit"))
+  (:title "Hot Git Time Machine" :pre (unless (bound-and-true-p git-timemachine-mode) (call-interactively 'git-timemachine)) :post (when (bound-and-true-p git-timemachine-mode) (git-timemachine-quit)) :foreign-keys run :quit-key "q")
+  ("Goto"
+   (("p" git-timemachine-show-previous-revision "previous commit")
+    ("n" git-timemachine-show-next-revision "next commit")
+    ("c" git-timemachine-show-current-revision "current commit")
+    ("g" git-timemachine-show-nth-revision "nth commit"))
 
-                      "Misc"
-                      (("Y" git-timemachine-kill-revision "copy hash"))))
+   "Misc"
+   (("Y" git-timemachine-kill-revision "copy hash"))))
 
 (general-define-key :states 'normal
                     "C-c C-t" 'magito/timemachine/body
