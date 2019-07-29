@@ -50,10 +50,14 @@
 (straight-use-package 'general)
 (straight-use-package 'doom-modeline)
 (straight-use-package 'doom-themes)
+(straight-use-package 'hydra)
 (straight-use-package 'evil)
 (straight-use-package 'evil-collection)
 (straight-use-package 'magit)
 (straight-use-package 'evil-magit)
+(straight-use-package 'git-timemachine)
+(straight-use-package 'pretty-hydra)
+(straight-use-package 'which-key)
 (straight-use-package 'bind-map)
 
 (require 'recentf)
@@ -66,10 +70,14 @@
 (require 'scroll-bar)
 (require 'doom-modeline)
 (require 'doom-themes)
+(require 'hydra)
 (require 'evil)
 (require 'evil-collection)
 (require 'magit)
 (require 'evil-magit)
+(require 'git-timemachine)
+(require 'which-key)
+(require 'pretty-hydra)
 
 ;; Setup basic stuff
 
@@ -93,19 +101,23 @@
 (setq echo-keystrokes 0.02)
 
 ;; Clean up visuals
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
 ;; Setup themes
+
 (load-theme 'doom-one t)
 (general-setq doom-modeline-icon nil)
 (doom-modeline-mode 1)
 
 ;; The meat and potatoes
-(evil-mode +1)
 
-(setq evil-collection-mode-list '(help info))
+(evil-mode +1)
+(which-key-mode)
+
+(setq evil-collection-mode-list '(git-timemachine help info))
 (evil-collection-init)
 
 (general-setq magit-log-section-commit-count 0)
@@ -113,6 +125,23 @@
 (general-setq magit-section-visibility-indicator nil)
 (general-setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 (magit-status-setup-buffer default-directory)
+
+;; Timemachine
+
+(pretty-hydra-define magito/timemachine
+                     (:title "Hot Git Time Machine" :pre (unless (bound-and-true-p git-timemachine-mode) (call-interactively 'git-timemachine)) :post (when (bound-and-true-p git-timemachine-mode) (git-timemachine-quit)) :foreign-keys run :quit-key "q")
+                     ("Goto"
+                      (("p" git-timemachine-show-previous-revision "previous commit")
+                       ("n" git-timemachine-show-next-revision "next commit")
+                       ("c" git-timemachine-show-current-revision "current commit")
+                       ("g" git-timemachine-show-nth-revision "nth commit"))
+
+                      "Misc"
+                      (("Y" git-timemachine-kill-revision "copy hash"))))
+
+(general-define-key :states 'normal
+                    "C-c C-t" 'magito/timemachine/body
+                    "C-c C-s" 'magit-status)
 
 (add-hook 'emacs-startup-hook #'magito/init)
 
