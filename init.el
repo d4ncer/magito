@@ -126,6 +126,9 @@
 (general-setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
 (magit-status-setup-buffer default-directory)
 
+(general-define-key :keymaps 'magit-status-mode-map :states 'normal
+                    "q" 'kill-emacs)
+
 ;; Timemachine
 
 (pretty-hydra-define magito/timemachine
