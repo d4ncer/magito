@@ -62,6 +62,7 @@
 (straight-use-package 'counsel)
 (straight-use-package 'swiper)
 (straight-use-package 'bind-map)
+(straight-use-package 'git-gutter-fringe)
 
 (require 'recentf)
 (require 'dash)
@@ -84,6 +85,7 @@
 (require 'ivy)
 (require 'swiper)
 (require 'counsel)
+(require 'git-gutter-fringe)
 
 ;; Setup basic stuff
 
@@ -111,6 +113,18 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
+
+;; Git gutter setup
+
+(setq-default fringes-outside-margins t)
+(define-fringe-bitmap 'git-gutter-fr:added [224]
+  nil nil '(center repeated))
+(define-fringe-bitmap 'git-gutter-fr:modified [224]
+  nil nil '(center repeated))
+(define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240]
+  nil nil 'bottom)
+
+(add-hook 'prog-mode-hook #'git-gutter-mode)
 
 ;; Setup themes
 
