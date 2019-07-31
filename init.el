@@ -58,6 +58,9 @@
 (straight-use-package 'git-timemachine)
 (straight-use-package 'pretty-hydra)
 (straight-use-package 'which-key)
+(straight-use-package 'ivy)
+(straight-use-package 'counsel)
+(straight-use-package 'swiper)
 (straight-use-package 'bind-map)
 
 (require 'recentf)
@@ -78,6 +81,9 @@
 (require 'git-timemachine)
 (require 'which-key)
 (require 'pretty-hydra)
+(require 'ivy)
+(require 'swiper)
+(require 'counsel)
 
 ;; Setup basic stuff
 
@@ -114,6 +120,10 @@
 
 ;; The meat and potatoes
 
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+
 (evil-mode +1)
 (which-key-mode)
 
@@ -143,7 +153,11 @@
 
 (pretty-hydra-define magito/base
   (:title "Magito" :foreign-keys run :quit-key "C-g")
-  ("File/Project"
+  ("General"
+   (("SPC" counsel-M-x "M-x" :exit t)
+    ("TAB" evil-switch-to-windows-last-buffer "last buffer"))
+
+   "File/Project"
    (("f" find-file "find file" :exit t))
 
    "Git"
@@ -151,11 +165,16 @@
     ("s" magit-status "status" :exit t))))
 
 (general-define-key :states '(normal motion visual)
-                    "SPC" 'magito/base/body)
+                    "SPC" 'magito/base/body
+                    "/" 'swiper)
 
 (general-define-key :keymaps 'magit-status-mode-map :states 'normal
                     "SPC" 'magito/base/body
                     "q" 'kill-emacs)
+
+(general-def ivy-minibuffer-map
+  "C-j" #'ivy-next-line
+  "C-k" #'ivy-previous-line)
 
 (add-hook 'emacs-startup-hook #'magito/init)
 
