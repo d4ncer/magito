@@ -108,7 +108,7 @@
 
 ;; Setup themes
 
-(load-theme 'doom-one t)
+(load-theme 'doom-nord t)
 (general-setq doom-modeline-icon nil)
 (doom-modeline-mode 1)
 
